@@ -1,15 +1,60 @@
 #!/usr/bin/python3
 """AirBnB console for command interpreter"""
 import cmd
+import re
+import ast
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-
     """HBNBC command interpreter"""
 
     prompt = '(hbnb) '
 
+    def precmd(self, line):
+        if line.endswith("all()"):
+            line = "all " + line.split(".")[0]
+        elif line.endswith("count()"):
+            line = "count " + line.split(".")[0]
+        elif re.search(r"\.show\(.+\)$", line):
+            start_index = line.find("(")
+            end_index = line.find(")")
+            substring = line[start_index + 1:end_index]
+            line = f"show {line.split('.')[0]} {substring}"
+        elif re.search(r"\.destroy\(.+\)$", line):
+            start_index = line.find("(")
+            end_index = line.find(")")
+            substring = line[start_index + 1:end_index]
+            line = f"destroy {line.split('.')[0]} {substring}"
+        elif re.search(r"\.update\(.+\)$", line):
+            if "{" in line:
+                uuid_pattern = r'User.update\("([^"]+)",'
+                uuid_match = re.search(uuid_pattern, line)
+                uuid_value = uuid_match.group(1)
+
+                # Extracting the attribute dictionary
+                dict_pattern = r'{(.+)}'
+                dict_match = re.search(dict_pattern, line)
+                dict_str = dict_match.group(0)
+
+                # Converting the attribute dictionary string to a dictionary object
+                attr_dict = ast.literal_eval(dict_str)
+
+                print(uuid_value)  # Output: 38f22813-2753-4d42-b37c-57a17f1e4f88
+                print(attr_dict)  # Output: {'first_name': 'John', 'age': 89}
+                for k, v in attr_dict.items():
+                    line = f"update {line.split('.')[0]} {uuid_value} {k} {v}"
+                    return line
+            else:
+                pattern = r'User.update\("([^"]+)", "([^"]+)", "([^"]+)"\)'
+                matches = re.match(pattern, line)
+
+                if matches:
+                    uuid_value = matches.group(1)
+                    attr_name = matches.group(2)
+                    attr_value = matches.group(3)
+                    line = f"update {line.split('.')[0]} {uuid_value} {attr_name} {attr_value}"
+        return line
 
     def emptyline(self):
         """Should do nothing on Enter"""
@@ -33,7 +78,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             new = storage.classes()[arg]()
             new.save()
-            print(new.id)
+            # print(new.id)
 
     def do_show(self, arg):
         """Print string representation of an instance
@@ -102,7 +147,6 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
                 else:
                     print("** no instance found **")
-
 
 
 if __name__ == '__main__':
