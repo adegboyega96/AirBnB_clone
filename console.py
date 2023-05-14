@@ -27,7 +27,15 @@ class HBNBCommand(cmd.Cmd):
             end_index = line.find(")")
             substring = line[start_index + 1:end_index]
             line = f"destroy {line.split('.')[0]} {substring}"
+        elif re.search(r"\.update\(.+\)$", line):
+            pattern = r'User.update\("([^"]+)", "([^"]+)", "([^"]+)"\)'
+            matches = re.match(pattern, line)
 
+            if matches:
+                uuid_value = matches.group(1)
+                attr_name = matches.group(2)
+                attr_value = matches.group(3)
+                line = f"update {line.split('.')[0]} {uuid_value} {attr_name} {attr_value}"
         return line
 
     def emptyline(self):
