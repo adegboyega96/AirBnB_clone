@@ -22,6 +22,11 @@ class HBNBCommand(cmd.Cmd):
             end_index = line.find(")")
             substring = line[start_index + 1:end_index]
             line = f"show {line.split('.')[0]} {substring}"
+        elif re.search(r"\.destroy\(.+\)$", line):
+            start_index = line.find("(")
+            end_index = line.find(")")
+            substring = line[start_index + 1:end_index]
+            line = f"destroy {line.split('.')[0]} {substring}"
 
         return line
 
