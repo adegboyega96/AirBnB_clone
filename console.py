@@ -7,6 +7,7 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
+
     """HBNBC command interpreter"""
 
     prompt = '(hbnb) '
@@ -147,6 +148,14 @@ class HBNBCommand(cmd.Cmd):
                     storage.save()
                 else:
                     print("** no instance found **")
+
+    def do_count(self, arg):
+        if len(arg) == 0:
+            print("** class name missing **")
+        elif arg not in storage.classes():
+            print("** class doesn't exist **")
+        else:
+            print(len([n for n in storage.all() if arg in n.split(".")]))
 
 
 if __name__ == '__main__':
