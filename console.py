@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """AirBnB console for command interpreter"""
 import cmd
-import re
-import ast
 from models import storage
 
 
@@ -33,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         elif arg not in storage.classes():
             print("** class doesn't exist **")
         else:
-            new = storage.classes()[arg]
+            new = storage.classes()[arg]()
             new.save()
             print(new.id)
 

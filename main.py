@@ -1,8 +1,6 @@
 #!/usr/bin/python3
 """AirBnB console for command interpreter"""
 import cmd
-import re
-import ast
 from models import storage
 
 
