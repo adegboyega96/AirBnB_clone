@@ -17,6 +17,11 @@ class HBNBCommand(cmd.Cmd):
             line = "all " + line.split(".")[0]
         elif line.endswith("count()"):
             line = "count " + line.split(".")[0]
+        elif re.search(r"\.show\(.+\)$", line):
+            start_index = line.find("(")
+            end_index = line.find(")")
+            substring = line[start_index + 1:end_index]
+            line = f"show {line.split('.')[0]} {substring}"
 
         return line
 
