@@ -38,11 +38,11 @@ class HBNBCommand(cmd.Cmd):
                 dict_match = re.search(dict_pattern, line)
                 dict_str = dict_match.group(0)
 
-                # Converting the attribute dictionary string to a dictionary object
+                # Converting the attribute dictionary string to a dictionary
                 attr_dict = ast.literal_eval(dict_str)
 
-                print(uuid_value)  # Output: 38f22813-2753-4d42-b37c-57a17f1e4f88
-                print(attr_dict)  # Output: {'first_name': 'John', 'age': 89}
+                print(uuid_value)
+                print(attr_dict)
                 for k, v in attr_dict.items():
                     line = f"update {line.split('.')[0]} {uuid_value} {k} {v}"
                     return line
@@ -54,7 +54,8 @@ class HBNBCommand(cmd.Cmd):
                     uuid_value = matches.group(1)
                     attr_name = matches.group(2)
                     attr_value = matches.group(3)
-                    line = f"update {line.split('.')[0]} {uuid_value} {attr_name} {attr_value}"
+                    line = f"update {line.split('.')[0]} " \
+                           f"{uuid_value} {attr_name} {attr_value}"
         return line
 
     def emptyline(self):
