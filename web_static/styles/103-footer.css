@@ -1,0 +1,24 @@
+footer {
+    background-color: white;
+    border-top: 1px solid #CCCCCC;
+    bottom: 0;
+    height: 60px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+}
+
+@media screen and (max-width:800px) {
+    footer {
+        height: 40px;
+    }
+    
+}
+
+@media screen and (max-width:400px) {
+    footer {
+        height: 20px;
+        /* padding-top: 100px; */
+    }
+
+}
