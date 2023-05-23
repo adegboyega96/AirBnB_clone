@@ -160,3 +160,18 @@ ul {
     }
 
 }
+
+@media (prefers-color-scheme: dark) {
+    .filters, .popover {
+        background-color: rgb(18, 18, 18);
+    }
+
+    button {
+        background-color: #7e2b2e;
+    }
+
+    button, .search {
+        color: #a1a1a1;
+    }
+
+}

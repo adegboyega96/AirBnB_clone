@@ -22,3 +22,11 @@ footer {
     }
 
 }
+
+@media (prefers-color-scheme: dark) {
+    footer {
+        border-top: 1px solid #a1a1a1;
+        background-color: rgb(18, 18, 18);
+    }
+
+}

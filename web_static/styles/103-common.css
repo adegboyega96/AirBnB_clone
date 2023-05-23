@@ -41,3 +41,10 @@ body {
     }
 
 }
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: rgb(18, 18, 18);
+        color: #a7a7a7;
+    }
+}
